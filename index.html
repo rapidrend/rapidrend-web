@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RapidRend - Interface Multimédia</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dosis:wght@200..800&family=Manrope:wght@200..800&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Manrope, sans-serif;
+        }
+
+        body {
+            background-color: #101010;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem;
+            background: rgba(16, 16, 16, 0.5);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 199, 236, 0.1);
+            z-index: 1000;
+        }
+
+        .nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            background: linear-gradient(45deg, #ffc7ec, #b632ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 15px rgba(182, 50, 255, 0.4);
+            /* Glow no logo */
+        }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            filter: drop-shadow(0 0 100px rgb(182, 50, 255));
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .hero img {
+            width: 300px;
+            max-width: 30%;
+        }
+
+        .hero h1 {
+            font-size: 2.2rem;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 20px rgba(212, 133, 255, 0.5);
+            ;
+            /* Glow no título */
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #ccc;
+            margin-bottom: 2rem;
+        }
+
+        .cta-button {
+            padding: 1rem 2rem;
+            background: linear-gradient(45deg, #b632ff, #ffc7ec);
+            color: #101010;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(182, 50, 255, 0.3);
+            /* Glow base */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 25px rgba(182, 50, 255, 0.6);
+            /* Glow intensificado */
+        }
+
+        .main-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .card {
+            background: rgba(16, 16, 16, 0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 199, 236, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 0 15px rgba(182, 50, 255, 0.1);
+            /* Glow suave */
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 30px rgba(182, 50, 255, 0.3);
+            /* Glow mais forte */
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        .center img {
+            max-width: 100%;
+        }
+
+        h1,
+        h2,
+        h3 {
+            margin-bottom: 1rem;
+            background: #de84ff;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .card>h3 {
+            margin-top: 1rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(32, 32, 32, 0.5);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 199, 236, 0.1);
+        }
+
+        .feature-card img {
+            height: 100px;
+            margin: 1rem;
+            filter: drop-shadow(0 0 25px rgb(182, 50, 255, 0.5));
+        }
+
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(16, 16, 16, 0.5);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(255, 199, 236, 0.1);
+        }
+
+        .author-card {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .highlight {
+            color: #ffc7ec;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .author-card {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .nav {
+                flex-direction: column;
+            }
+
+            .nav .highlight {
+                display: none;
+            }
+        }
+
+        /* Novas animações */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeRight {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeLeft {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Aplica animações específicas */
+        .hero-content {
+            margin-top: 3.3rem;
+            animation: fadeUp 1.5s ease-out;
+        }
+
+        .card {
+            transform: translateY(30px);
+        }
+
+        main section,
+        .author-card {
+            opacity: 0;
+        }
+
+        .show {
+            opacity: 1;
+            transform: none;
+        }
+
+        main section.show {
+            animation: fadeRight 1s ease-out;
+        }
+
+        main section.show:nth-child(even) {
+            animation: fadeLeft 1s ease-out;
+        }
+
+        .show.author-card {
+            animation: fadeUp 1s ease-out;
+        }
+
+        .logos,
+        .logos img {
+            height: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <nav class="nav">
+            <div class="logo">RapidRend</div>
+            <div>
+                <a href="#demo" class="highlight" style="margin-right: 20px;">Demonstração</a>
+                <a href="#about" class="highlight" style="margin-right: 20px;">Sobre</a>
+                <a href="#features" class="highlight" style="margin-right: 20px;">Funcionalidades</a>
+                <a href="#author" class="highlight">Autor</a>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <img src="app.svg" alt="Logótipo RapidRend">
+            <h1>Transforme a sua criatividade em realidade</h1>
+            <p>Automatize tarefas de edição multimédia com a poderosa interface do RapidRend. Conversão,
+                redimensionamento e efeitos visuais ao alcance de um clique.</p>
+            <a href="https://github.com/rapidrend/rapidrend/releases/tag/v0.2.0" class="cta-button">Comece Agora</a>
+        </div>
+    </section>
+
+    <main class="main-container">
+        <section id="demo" class="center">
+            <img src="screenshot.png">
+        </section>
+
+        <section id="about" class="card">
+            <h1>Sobre o Projeto</h1>
+            <p class="highlight">Prova de Aptidão Profissional (PAP) - Ano Letivo 2024/2025</p>
+            <p>Interface Multiuso para Manipulação e Criação de Conteúdo Multimédia</p>
+
+            <h3>Resumo</h3>
+            <p>Aplicação intuitiva para automatizar tarefas de edição multimédia como conversão de formatos,
+                redimensionamento e aplicação de efeitos. Desenvolvida com tecnologias como FFmpeg, ImageMagick,
+                JavaScript e Node.js.</p>
+        </section>
+
+        <section id="features" class="card">
+            <h2>Funcionalidades Principais</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <img src="image.svg">
+                    <h3>Processamento de Imagens</h3>
+                    <p>Redimensionamento inteligente, aplicação de filtros, conversão de formatos e manipulação avançada
+                        com ImageMagick</p>
+                </div>
+
+                <div class="feature-card">
+                    <img src="video.svg">
+                    <h3>Edição de Vídeo</h3>
+                    <p>Corte, junção, conversão de formatos e aplicação de efeitos visuais com FFmpeg</p>
+                </div>
+
+                <div class="feature-card">
+                    <img src="lightning.svg">
+                    <h3>Automatização</h3>
+                    <p>Criação de workflows personalizados e execução em batch para processamento em massa</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="author" class="card">
+            <h2>Sobre o Autor</h2>
+            <div class="author-card">
+                <div>
+                    <h3>Rúben Tavares 12ºTGPSI</h3>
+                    <p>Técnico de Gestão e Programação de Sistemas Informáticos</p>
+                    <p>Agrupamento de Escolas Ferreira de Castro</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>© 2024-2025 RapidRend - Desenvolvido no âmbito da PAP</p>
+        <p>Agrupamento de Escolas Ferreira de Castro | Curso Profissional TGPSI</p>
+        <div class="logos">
+            <img src="logo1.png">
+            <img src="logo2.png">
+            <img src="logo3.png">
+        </div>
+    </footer>
+
+    <script>
+        // Ajuste no Observer
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('show');
+                }
+            });
+        }, {
+            threshold: 0.1 // Ajuste do threshold para 20%
+        });
+
+        // Observar todos os elementos com classe hidden
+        document.querySelectorAll('main section, .author-card').forEach((el) => observer.observe(el));
+
+        // Scroll suave para os links do menu
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
